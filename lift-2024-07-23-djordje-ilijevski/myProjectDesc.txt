@@ -1,0 +1,106 @@
+Loan Type processing
+
+Tech stack:
+IntelliJ - community or Eclipse
+Spring Boot v. 3.3.1
+Java 17
+SQLite - we will do dev with MySQL - then change to this - TODO
+Client za dbase - MySQL Workbench
+Swagger - documented REST APIs		- TODO
+REST API
+Run app from CMD - maven and
+No front-end
+Functional requirements:
+ReqBank employee:
+Creates different loan types:
+Each loan  type must have a unique name.
+Loan types number is not limited/defined in advance.
+
+
+TABLE - loan_type
+id
+name - UNIQUE
+
+
+Example of loan type short names:
+public enum LoanType {
+   AUTOMOBILE, STUDENT, MORTGAGE, PERSONAL, BUSINESS, SHOP, REALESTATE, CASH
+}
+
+
+
+
+Examples of loan types:
+Cash loan
+Real estate loan
+Real estate loan for young people
+Business investment loan
+Loan for solar panels
+Define the procedure/flow for processing loan type.
+The procedure consists of a list of arbitrarily defined steps.
+
+
+	Ex:
+LoanType = CASH has 2 steps:
+Collection of required documents
+Salary verification
+
+
+	LoanType = REAL_ESTATE has 4 steps:
+validation of the client's creditworthiness,
+real estate insurance
+Documents
+Salary
+etc.
+
+
+Each step must have: TABLE
+name,
+order number,
+expected duration in days.
+TABLE - loan_type_step
+id
+name
+order_number
+noOfDays 		- expected duration in days
+fk loan_type_id - foreign key - reference to loan_type table
+
+
+IMPORTANT:
+A single step can only be associated with one loan type.
+One-to-many and many-to-one JPA/Hibernate BI-directional mapping
+
+
+
+
+
+
+
+
+
+
+REST APIs
+Create Loan Type:
+
+
+POST
+ /api/v1/loantypes
+BODY
+{
+“name”: “CASH”
+}
+
+
+Search for Loan Type by Name and display:
+GET
+/api/v1/loantypes/name/”{name}”
+RESPONSE
+the total expected duration of all steps, and
+a list of defined steps for processing that loan type. - from loan_type_step table
+Display individual Loan Type Details.
+
+
+DELETE loan_type by name
+
+
+Display all LoanTypes with their steps.
